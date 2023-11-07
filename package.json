@@ -1,0 +1,37 @@
+{
+  "name": "dictionaryapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lxbach1608/DictionaryApp.git"
+  },
+  "keywords": [
+    "dictionary",
+    "nodejs",
+    "expressJs",
+    "html5",
+    "css3",
+    "sass",
+    "tailwind",
+    "handlebars",
+    "mongodb"
+  ],
+  "author": "bale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lxbach1608/DictionaryApp/issues"
+  },
+  "homepage": "https://github.com/lxbach1608/DictionaryApp#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
