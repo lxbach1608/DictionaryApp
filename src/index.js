@@ -13,6 +13,7 @@ app.use(morgan("combined"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Template handlebars engine
+// config extension from .handlebars to .hbs
 app.engine("hbs", handlebars.engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
