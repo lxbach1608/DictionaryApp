@@ -5,9 +5,11 @@ const morgan = require("morgan");
 const handlebars = require("express-handlebars");
 const port = 3001;
 
+app.use(express.urlencoded({ extended: true }));
+
 // Http logger
 // showing http request, response info in the terminal
-app.use(morgan("combined"));
+// app.use(morgan("combined"));
 
 // config static folder
 app.use(express.static(path.join(__dirname, "public")));
@@ -20,6 +22,11 @@ app.set("views", path.join(__dirname, "resources/views"));
 
 // Root
 app.get("/", (req, res) => {
+  res.render("home");
+});
+
+app.post("/", (req, res) => {
+  console.log(req.body.q);
   res.render("home");
 });
 
