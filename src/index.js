@@ -1,10 +1,16 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
 const app = express();
-const morgan = require("morgan");
-const handlebars = require("express-handlebars");
+const morgan = require('morgan');
+const handlebars = require('express-handlebars');
 const port = 3001;
+const route = require('./routes');
 
+// connect to mongodb
+const db = require('./config/db');
+db.connect();
+
+// config POST request
 app.use(express.urlencoded({ extended: true }));
 
 // Http logger
@@ -12,23 +18,21 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(morgan("combined"));
 
 // config static folder
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Template handlebars engine
 // config extension from .handlebars to .hbs
-app.engine("hbs", handlebars.engine({ extname: ".hbs" }));
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "resources/views"));
+app.engine('hbs', handlebars.engine({ extname: '.hbs' }));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'resources/views'));
 
-// Root
-app.get("/", (req, res) => {
-  res.render("home");
-});
+// route
+route(app);
 
-app.post("/", (req, res) => {
-  console.log(req.body.q);
-  res.render("home");
-});
+// app.post("/", (req, res) => {
+//   console.log(req.body.q);
+//   res.render("home");
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
