@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const wordController = require('../app/controllers/wordController');
+const WordController = require('../app/controllers/WordController');
 
-router.use('/', wordController.index);
+router.use('/:slug', WordController.show);
 
 module.exports = router;

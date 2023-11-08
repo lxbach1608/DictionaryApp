@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
     {{#each words}}
-    <div class="col-lg-4">{{this.word}}</div>
+    <div class="col-lg-4">
+      <div>
+        <a href="word/{{this.slug}}">{{this.word}}</a>
+      </div>
+    </div>
     {{/each}}
   </div>
 </div>

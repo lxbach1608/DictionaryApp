@@ -1,7 +1,7 @@
 const Word = require('../models/Word');
 const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
 
-class siteController {
+class SiteController {
   // [GET] path: "/"
   async index(req, res) {
     let instance;
@@ -19,4 +19,4 @@ class siteController {
   }
 }
 
-module.exports = new siteController();
+module.exports = new SiteController();
