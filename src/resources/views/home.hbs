@@ -1,5 +1,7 @@
-<div class="">
-  <ul>
-    <li>HOME</li>
-  </ul>
+<div class="container">
+  <div class="row">
+    {{#each words}}
+    <div class="col-lg-4">{{this.word}}</div>
+    {{/each}}
+  </div>
 </div>
