@@ -1,15 +1,12 @@
 <div class="container">
-  <div class="mb-4">
-    <a href="/word/create">create word</a>
-  </div>
-
-  <div class="row">
+  <ul>
     {{#each words}}
-    <div class="col-lg-4">
+    <li class="row">
       <div>
         <a href="word/{{this.slug}}">{{this.word}}</a>
+        <p>{{this.description}}</p>
       </div>
-    </div>
+    </li>
     {{/each}}
-  </div>
+  </ul>
 </div>

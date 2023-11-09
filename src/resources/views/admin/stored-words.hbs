@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Word</th>
+            <th scope="col">Description</th>
+            <th scope="col">Slug</th>
+            <th scope="col">action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each words}}
+        <tr>
+            <th scope="row">1</th>
+            <td>{{this.word}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.slug}}</td>
+            <td>
+                <a href="/admin/{{this._id}}/edit"><button type="button" class="btn btn-primary">Update</button></a>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

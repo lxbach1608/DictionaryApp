@@ -6,6 +6,10 @@ const handlebars = require('express-handlebars');
 const port = 3001;
 const route = require('./routes');
 
+// method override form submission
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 // connect to mongodb
 const db = require('./config/db');
 db.connect();
