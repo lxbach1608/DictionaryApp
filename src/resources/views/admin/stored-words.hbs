@@ -17,9 +17,54 @@
             <td>{{this.slug}}</td>
             <td>
                 <a href="/admin/{{this._id}}/edit"><button type="button" class="btn btn-primary">Update</button></a>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}"
+                    data-bs-target="#deleteModal">Delete</button>
             </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete this word ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger delete-btn" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="deleteWord" method="POST"></form>
+
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+
+    document.addEventListener("DOMContentLoaded", () => {
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+
+            var modalBtn = event.relatedTarget;
+
+            const deleteBtn = document.querySelector('.delete-btn');
+
+            const deleteForm = document.forms['deleteWord'];
+
+
+            deleteBtn.onclick = function (e) {
+                deleteForm.action = `/admin/${modalBtn.getAttribute('data-id')}/?_method=DELETE`;
+                deleteForm.submit();
+            }
+        })
+    })
+
+
+</script>

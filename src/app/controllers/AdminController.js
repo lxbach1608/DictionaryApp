@@ -46,6 +46,18 @@ class WordController {
       next(err);
     }
   }
+
+  // [DELETE] /admin/:id
+  async destroy(req, res, next) {
+    try {
+      const id = req.params.id;
+      await Word.deleteOne({ _id: id });
+
+      res.redirect('back');
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new WordController();
