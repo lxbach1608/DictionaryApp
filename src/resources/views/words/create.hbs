@@ -1,13 +1,13 @@
-<div>
-    <h1>update</h1>
-    <form method="POST" action="/admin/{{word._id}}?_method=PUT">
+<div class="px-5 py-5">
+    <h1>Tạo từ</h1>
+    <form method="POST" action="/words/create">
         <div class="mb-3">
             <label for="word" class="form-label">word</label>
-            <input type="text" name="word" value="{{word.word}}" class="form-control" id="word">
+            <input type="text" name="word" class="form-control" id="word">
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">description</label>
-            <input type="text" name="description" value="{{word.description}}" class="form-control" id="description">
+            <input type="text" name="description" class="form-control" id="description">
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

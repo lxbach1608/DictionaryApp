@@ -2,13 +2,13 @@ const Word = require('../models/Word');
 const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
 
 class WordController {
-  // [GET] /word/:slug
+  // [GET] /words/:slug
   async show(req, res, next) {
     try {
       const instance = await Word.findOne({ slug: req.params.slug });
       const word = instance;
 
-      res.render('word/show', {
+      res.render('words/show', {
         word: mongooseToObject(word),
       });
     } catch (err) {
@@ -16,12 +16,27 @@ class WordController {
     }
   }
 
-  // [GET] /word/create
+  // [GET] /words/create
   create(req, res, next) {
-    res.render('word/create');
+    res.render('words/create');
   }
 
-  // [POST] /word/store
+  // [GET] /words/:id/edit
+  async edit(req, res, next) {
+    try {
+      const id = req.params.id;
+      const instance = await Word.findById(id);
+      const word = instance;
+
+      res.render('words/edit', {
+        word: mongooseToObject(word),
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  // [POST] /words/create
   store(req, res, next) {
     const formData = req.body;
 
@@ -29,6 +44,32 @@ class WordController {
     newWord.save();
 
     res.redirect('/home');
+  }
+
+  // [PUT] /words/:id
+  async update(req, res, next) {
+    try {
+      const id = req.params.id;
+
+      const instance = await Word.updateOne({ _id: id }, req.body);
+
+      res.redirect('back');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  // [DELETE] /words/:id
+  async destroy(req, res, next) {
+    try {
+      const id = req.params.id;
+
+      await Word.deleteOne({ _id: id });
+
+      res.redirect('back');
+    } catch (err) {
+      next(err);
+    }
   }
 }
 

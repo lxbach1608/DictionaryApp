@@ -1,11 +1,15 @@
 <div class="container">
+  <h1>HOME</h1>
+
+  <label>find word</label>
+  <form action="" method="GET">
+    <input type="text" name="word" placeholder="Type word">
+  </form>
+
   <ul>
     {{#each words}}
-    <li class="row">
-      <div>
-        <a href="word/{{this.slug}}">{{this.word}}</a>
-        <p>{{this.description}}</p>
-      </div>
+    <li>
+      <a href="/words/{{this.slug}}">{{this.word}}</a>
     </li>
     {{/each}}
   </ul>

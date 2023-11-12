@@ -1,3 +1,7 @@
+<div>
+    <a href="/words/create" class="ms-3">Tạo từ vựng</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -16,8 +20,8 @@
             <td>{{this.description}}</td>
             <td>{{this.slug}}</td>
             <td>
-                <a href="/admin/{{this._id}}/edit"><button type="button" class="btn btn-primary">Update</button></a>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-id="{{this._id}}"
+                <a href="/words/{{this._id}}/edit"><button type="button" class="btn btn-primary">Update</button></a>
+                <button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-id="{{this._id}}"
                     data-bs-target="#deleteModal">Delete</button>
             </td>
         </tr>
@@ -47,6 +51,17 @@
 <form name="deleteWord" method="POST"></form>
 
 <script>
+
+    /*
+        document.addEventListener("DOMContentLoaded", (e) => {
+            const deleteBtn = $("delete-btn");
+    
+            console.log(deleteBtn);
+            console.log("DOM reloaded");
+        })
+        */
+
+
     var deleteModal = document.getElementById('deleteModal');
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -60,7 +75,7 @@
 
 
             deleteBtn.onclick = function (e) {
-                deleteForm.action = `/admin/${modalBtn.getAttribute('data-id')}/?_method=DELETE`;
+                deleteForm.action = `/words/${modalBtn.getAttribute('data-id')}/?_method=DELETE`;
                 deleteForm.submit();
             }
         })

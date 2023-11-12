@@ -1,0 +1,15 @@
+<div class="px-5 py-5">
+    <h1>Edit word</h1>
+    <form method="POST" action="/words/{{word._id}}/?_method=PUT">
+        <div class="mb-3">
+            <label for="word" class="form-label">word</label>
+            <input type="text" name="word" class="form-control" id="word" value="{{word.word}}">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">description</label>
+            <input type="text" name="description" class="form-control" id="description" value="{{word.description}}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
