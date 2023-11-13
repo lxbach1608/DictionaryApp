@@ -1,5 +1,5 @@
 const Word = require('../models/Word');
-const User = require('../models/User');
+
 const User_Word = require('../models/User_Word');
 const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
 
@@ -22,13 +22,6 @@ class MeController {
 
       next(err);
     }
-  }
-
-  //[POST] /me/logout
-  logout(req, res, next) {
-    req.session.destroy((err) => {
-      res.render('home');
-    });
   }
 
   //[POST] /me/:wordId

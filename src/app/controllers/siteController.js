@@ -2,7 +2,6 @@ const Word = require('../models/Word');
 const User = require('../models/User');
 
 const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
-const { stringToHash } = require('../util/hashing');
 
 class SiteController {
   // [GET] /
@@ -45,7 +44,7 @@ class SiteController {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = await User.exists({
+    const user = await User.findOne({
       username,
       password,
     });
@@ -58,11 +57,20 @@ class SiteController {
       return;
     }
 
-    req.session.user = {
+    // add user id to session /util
+    req.session.userSession = {
       id: user._id,
+      isAdmin: user.isAdmin,
     };
 
     res.redirect('/home');
+  }
+
+  //[POST] /me/logout
+  logout(req, res, next) {
+    req.session.destroy((err) => {
+      res.render('home');
+    });
   }
 }
 

@@ -1,8 +1,10 @@
-function validUser(userId) {}
-
 module.exports = function authMiddleware(req, res, next) {
-  res.json('There no permission to go here !!!! please go away =)))');
-  return;
+  if (req.session.userSession) {
+    res.locals._user = req.session.userSession;
 
-  next();
+    return next();
+  }
+  res.redirect('/sign-in');
+
+  return;
 };

@@ -7,6 +7,7 @@ const port = 3001;
 const route = require('./routes');
 
 const renderHashedWords = require('./app/helpers/renderHashedWords');
+const renderHeader = require('./app/helpers/renderHeader');
 
 const session = require('express-session');
 app.use(
@@ -44,6 +45,7 @@ app.engine(
     extname: '.hbs',
     helpers: {
       renderHashedWords,
+      renderHeader,
     },
   })
 );
