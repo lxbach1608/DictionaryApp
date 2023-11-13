@@ -3,12 +3,13 @@ const siteRouter = require('./site');
 const adminRouter = require('./admin');
 const meRouter = require('./me');
 
+const authMiddleware = require('../app/middlewares/authMiddleware');
 const hashingMiddleware = require('../app/middlewares/hashingMiddleware');
 
 function route(app) {
-  app.use('/admin', adminRouter);
-  app.use('/me', meRouter);
-  app.use('/words', hashingMiddleware, wordRouter);
+  app.use('/admin', authMiddleware, adminRouter);
+  app.use('/me', authMiddleware, meRouter);
+  app.use('/words', wordRouter);
   app.use('/', siteRouter);
 }
 

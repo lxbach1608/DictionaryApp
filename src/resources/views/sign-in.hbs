@@ -1,7 +1,7 @@
 <div class="p-5">
-    <h1>Sign up</h1>
+    <h1>Sign in</h1>
 
-    <form action="/me/register" method="POST">
+    <form action="/login" method="POST">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" name="username" class="form-control" id="username" placeholder="username">
@@ -11,6 +11,10 @@
             <input type="text" name="password" class="form-control" id="password" placeholder="password">
         </div>
 
-        <button type="submit">Register</button>
+        {{#if invalidMessage}}
+        <span style="color: red">{{invalidMessage}}</span>
+        {{/if}}
+
+        <button type="submit">Login</button>
     </form>
 </div>

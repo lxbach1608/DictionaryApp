@@ -1,15 +1,8 @@
-module.exports = function authMiddleware(req, res, next) {
-  res.locals._auth = {
-    userValid: false,
-  };
+function validUser(userId) {}
 
-  try {
-    res.locals._auth.userValid = req.session.user.id ? true : false;
-    console.log(req.session.user.id);
-    console.log(res.locals._auth.userValid);
-  } catch (e) {
-    console.log(res.locals._auth.userValid);
-  }
+module.exports = function authMiddleware(req, res, next) {
+  res.json('There no permission to go here !!!! please go away =)))');
+  return;
 
   next();
 };

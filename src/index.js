@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const port = 3001;
 const route = require('./routes');
-const authMiddleware = require('./app/middlewares/authMiddleware');
+
 const renderHashedWords = require('./app/helpers/renderHashedWords');
 
 const session = require('express-session');
@@ -51,7 +51,6 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
 // customer middleware
-app.use(authMiddleware);
 
 // route
 route(app);

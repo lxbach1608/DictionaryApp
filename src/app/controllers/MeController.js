@@ -24,51 +24,6 @@ class MeController {
     }
   }
 
-  // [GET] /me/sign-in
-  signIn(req, res, next) {
-    res.render('me/sign-in');
-  }
-
-  // [GET] /me/sign-up
-  signUp(req, res, next) {
-    res.render('me/sign-up');
-  }
-
-  // [POST] /me/sign-in
-  async login(req, res, next) {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    const user = await User.exists({
-      username,
-      password,
-    });
-
-    if (!user) {
-      res.render('me/sign-in', {
-        invalidMessage: 'Username or password are wrong !!',
-      });
-
-      return;
-    }
-
-    req.session.user = {
-      id: user._id,
-    };
-
-    res.redirect('/home');
-  }
-
-  // [POST] /me/sign-up
-  create(req, res, next) {
-    const formData = req.body;
-
-    const newUser = new User(formData);
-    newUser.save();
-
-    res.redirect('/home');
-  }
-
   //[POST] /me/logout
   logout(req, res, next) {
     req.session.destroy((err) => {

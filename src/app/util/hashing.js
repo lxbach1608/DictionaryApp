@@ -1,23 +1,23 @@
-module.exports = {
-  stringToHash(string) {
-    let hash = 0;
+function stringToHash(string) {
+  let hash = 0;
 
-    if (string.length == 0) return hash;
+  if (string.length == 0) return hash;
 
-    for (i = 0; i < string.length; i++) {
-      char = string.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash |= 0;
-    }
+  for (i = 0; i < string.length; i++) {
+    char = string.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
+  }
 
-    return hash;
-  },
+  return hash;
+}
 
-  findWordByHashTable(slug, hashTable) {
-    const key = stringToHash(slug);
+function findWordByHashTable(slug, hashTable) {
+  const key = stringToHash(slug);
 
-    const word = hashTable[key];
+  const word = hashTable[key];
 
-    return word;
-  },
-};
+  return word;
+}
+
+module.exports = { stringToHash, findWordByHashTable };
