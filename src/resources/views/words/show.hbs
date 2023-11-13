@@ -8,6 +8,8 @@
             ">{{word.word}}</h2>
         </div>
 
-        <button>Thêm vào danh sách từ vựng</button>
+        <form action="/me/{{word._id}}" method="POST">
+            <button type="submit">add word to your repo</button>
+        </form>
     </div>
 </div>

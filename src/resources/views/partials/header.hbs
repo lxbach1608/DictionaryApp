@@ -19,5 +19,24 @@
 
             </div>
         </div>
+
+        <div class="ms-auto">
+
+            {{#if _auth.userValid}}
+            <div class="d-flex">
+                <div><img
+                        src="https://lh3.googleusercontent.com/a/AAcHTtelGJaL8-S_x15Kl9sKcXMT2re-P0Ni1OHWXk4K1w=s96-c?sz=150"
+                        alt=""></div>
+
+                <a href="/me/logout" class="d-block w-auto">Logout</a>
+            </div>
+            {{else}}
+            <div class="d-flex">
+                <a href="/me/sign-in" class="d-block w-auto" style="background-color: red;">Sign in</a>
+
+                <a href="/me/register" class="d-block w-auto">Sign up</a>
+            </div>
+            {{/if}}
+        </div>
     </nav>
 </div>

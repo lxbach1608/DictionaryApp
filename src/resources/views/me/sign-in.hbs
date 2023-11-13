@@ -1,0 +1,20 @@
+<div class="p-5">
+    <h1>Sign in</h1>
+
+    <form action="/me/sign-in" method="POST">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="username">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="text" name="password" class="form-control" id="password" placeholder="password">
+        </div>
+
+        {{#if invalidMessage}}
+        <span style="color: red">{{invalidMessage}}</span>
+        {{/if}}
+
+        <button type="submit">Login</button>
+    </form>
+</div>

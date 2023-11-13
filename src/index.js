@@ -5,6 +5,18 @@ const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const port = 3001;
 const route = require('./routes');
+const authMiddleware = require('./app/middlewares/authMiddleware');
+const renderHashedWords = require('./app/helpers/renderHashedWords');
+
+const session = require('express-session');
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'secret',
+    cookie: { maxAge: 100000 },
+  })
+);
 
 // method override form submission
 const methodOverride = require('method-override');
@@ -26,9 +38,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Template handlebars engine
 // config extension from .handlebars to .hbs
-app.engine('hbs', handlebars.engine({ extname: '.hbs' }));
+app.engine(
+  'hbs',
+  handlebars.engine({
+    extname: '.hbs',
+    helpers: {
+      renderHashedWords,
+    },
+  })
+);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
+
+// customer middleware
+app.use(authMiddleware);
 
 // route
 route(app);

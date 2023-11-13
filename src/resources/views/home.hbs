@@ -1,12 +1,11 @@
 <div class="container">
   <h1>HOME</h1>
 
-  <label>find word</label>
-  <form action="" method="GET">
-    <input type="text" name="word" placeholder="Type word">
+  <input type="text" class="find-input" name="word" placeholder="find word">
+  <form name="findForm" method="GET">
   </form>
 
-  <ul>
+  <ul class="mt-5">
     {{#each words}}
     <li>
       <a href="/words/{{this.slug}}">{{this.word}}</a>
@@ -14,3 +13,53 @@
     {{/each}}
   </ul>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+    const findInput = $(".find-input");
+    const findForm = document.forms['findForm'];
+
+    console.log(findForm);
+
+    findInput.keypress(e => {
+
+      if (e.keyCode == 13) {
+        let slug = e.target.value.trim().replace(" ", "-");
+        console.log(slug);
+
+        findForm.action = `/words/${slug}`;
+        console.log(findForm.action);
+        findForm.submit();
+      }
+    });
+  });
+
+
+  let obj1 = {
+    word: "tea",
+    definition: "test",
+  }
+
+  let obj2 = {
+    word: "text",
+    definition: "test",
+  }
+
+
+  class Node {
+    constructor(data) {
+      this.data = data;
+      this.left = null;
+      this.right = null;
+    }
+  }
+
+  let node1 = new Node(obj1);
+  let node2 = new Node(obj2);
+
+  node1.left = node2;
+
+  console.log(node1);
+
+
+</script>

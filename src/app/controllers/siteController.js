@@ -1,16 +1,16 @@
 const Word = require('../models/Word');
 const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
+const { stringToHash } = require('../util/hashing');
 
 class SiteController {
-  // [GET] path: "/"
+  // [GET] /
   async index(req, res) {
-    let instance;
     try {
-      instance = await Word.find({});
+      let words = await Word.find({});
 
-      const words = instance;
+      words = mongoosesToObjects(words);
 
-      res.render('home', { words: mongoosesToObjects(words) });
+      res.render('home', { words });
     } catch (err) {
       res.status(400).json({ error: "Error: Can't find word" });
 

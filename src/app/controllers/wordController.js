@@ -1,15 +1,19 @@
 const Word = require('../models/Word');
 const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
+const { findWordByHashTable } = require('../util/hashing');
 
 class WordController {
   // [GET] /words/:slug
   async show(req, res, next) {
     try {
-      const instance = await Word.findOne({ slug: req.params.slug });
-      const word = instance;
+      const slug = req.params.slug;
+
+      const hashTable = res.locals._hashTable;
+
+      const word = findWordByHashTable(slug, hashTable);
 
       res.render('words/show', {
-        word: mongooseToObject(word),
+        word,
       });
     } catch (err) {
       next(err);

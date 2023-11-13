@@ -1,15 +1,84 @@
 <div class="px-5 py-5">
+    <label>find word</label>
+    <input class="search-input" type="text" name="word" placeholder="Type word">
+
     <h1>Tạo từ</h1>
-    <form method="POST" action="/words/create">
+    <form class="form-create" method="POST" action="/words/create">
         <div class="mb-3">
             <label for="word" class="form-label">word</label>
             <input type="text" name="word" class="form-control" id="word">
         </div>
         <div class="mb-3">
-            <label for="description" class="form-label">description</label>
-            <input type="text" name="description" class="form-control" id="description">
+            <label for="description" class="form-label">partOfSpeed</label>
+            <input type="text" name="partOfSpeed" class="form-control" id="description">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">phonetic</label>
+            <input type="text" name="phonetic" class="form-control" id="description">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">definition</label>
+            <input type="text" name="definition" class="form-control" id="description">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">example</label>
+            <input type="text" name="example" class="form-control" id="description">
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        const searchInput = $(".search-input");
+        const result = $(".form-create");
+
+        searchInput.keypress(e => {
+            if (e.keyCode == 13) {
+                dictionaryApi = `https://api.dictionaryapi.dev/api/v2/entries/en/${e.target.value}`;
+
+                fetch(dictionaryApi)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        word = data[0];
+                        meaning = word.meanings[0];
+                        phonetic = word.phonetics[0];
+                        definition = meaning.definitions[0];
+
+                        result.html(`
+                        <div class="mb-3">
+                            <label for="word" class="form-label">word</label>
+                            <input type="text" value="${e.target.value}" name="word" class="form-control" id="word">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">partOfSpeed</label>
+                            <input type="text" value="${meaning.partOfSpeech}" name="partOfSpeed" class="form-control" id="description">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">phonetic</label>
+                            <input type="text" value="${phonetic.text}" name="phonetic" class="form-control" id="description">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">definition</label>
+                            <input type="text" value="${definition.definition}" name="definition" class="form-control" id="description">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">example</label>
+                            <input type="text" value="${definition.example || ""}" name="example" class="form-control" id="description">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        `)
+                    })
+                    .catch(e => console.log("Error when get api"))
+            }
+        })
+
+        console.log(searchInput);
+    })
+
+</script>
