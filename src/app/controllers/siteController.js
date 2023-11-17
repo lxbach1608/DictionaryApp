@@ -57,8 +57,8 @@ class SiteController {
       return;
     }
 
-    // add user id to session /util
-    req.session.userSession = {
+    // save user in session
+    req.session.user = {
       id: user._id,
       isAdmin: user.isAdmin,
     };

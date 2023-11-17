@@ -6,6 +6,7 @@ const ObjectId = Schema.ObjectId;
 
 const User_Word = new Schema({
   userId: ObjectId,
+  wordId: ObjectId,
   word: String,
 });
 

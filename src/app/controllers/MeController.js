@@ -8,10 +8,7 @@ class MeController {
   async storedWords(req, res, next) {
     try {
       const userId = req.session.user.id;
-    } catch (e) {
-      console.log(e);
-    }
-    try {
+
       const user_words = await User_Word.find({ userId });
 
       res.render('me/stored-words', {
@@ -29,15 +26,20 @@ class MeController {
     const userId = req.session.user.id;
     const wordId = req.params.wordId;
 
-    let word = await Word.findOne({ _id: wordId });
-    word = mongooseToObject(word);
+    let user_words = await User_Word.find({ userId, wordId });
 
-    console.log(word.word);
+    if (user_words.length == 0) {
+      console.log('In');
 
-    const instance = new User_Word({ userId, word: word.word });
-    instance.save();
+      let word = await Word.findOne({ _id: wordId });
 
-    res.redirect('/me/stored-words');
+      word = mongooseToObject(word);
+
+      const instance = new User_Word({ userId, wordId, word: word.word });
+      instance.save();
+    }
+
+    res.redirect('/me/stored/words');
   }
 }
 

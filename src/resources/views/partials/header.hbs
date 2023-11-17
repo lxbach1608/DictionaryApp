@@ -1,21 +1,16 @@
 <div class="mb-4">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
+            {{#if _user.id}}
+            <a class="navbar-brand" href="/home">Navbar</a>
+            {{else}}
             <a class="navbar-brand" href="/">Navbar</a>
+            {{/if}}
+
             </button>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {{{renderHeader _user}}}
-                    {{!-- <li class="me-md-3">
-                        <a href="/admin/stored/words">
-                            Store (admin)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/me/stored/words">
-                            Store (me)
-                        </a>
-                    </li> --}}
                 </ul>
 
             </div>

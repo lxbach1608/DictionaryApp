@@ -9,7 +9,7 @@ const hashingMiddleware = require('../app/middlewares/hashingMiddleware');
 function route(app) {
   app.use('/admin', authMiddleware, adminRouter);
   app.use('/me', authMiddleware, meRouter);
-  app.use('/words', wordRouter);
+  app.use('/words', authMiddleware, wordRouter);
   app.use('/', siteRouter);
 }
 
