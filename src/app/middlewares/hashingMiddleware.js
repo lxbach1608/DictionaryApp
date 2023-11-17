@@ -3,8 +3,7 @@ const { mongoosesToObjects, mongooseToObject } = require('../util/mongoose');
 const { stringToHash } = require('../util/hashing');
 
 module.exports = async function hashWordsMiddleware(req, res, next) {
-  let hashWords = res.locals._hashTable;
-  if (hashWords === undefined) {
+  if (global.HASHTABLE === undefined) {
     try {
       let words = await Word.find({});
 
@@ -18,7 +17,7 @@ module.exports = async function hashWordsMiddleware(req, res, next) {
         hashTable[hashValue] = word;
       });
 
-      res.locals._hashTable = hashTable;
+      global.HASHTABLE = hashTable;
     } catch (e) {
       console.log(e);
     }

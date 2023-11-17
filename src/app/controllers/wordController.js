@@ -8,7 +8,7 @@ class WordController {
     try {
       const slug = req.params.slug;
 
-      const hashTable = res.locals._hashTable;
+      const hashTable = global.HASHTABLE;
 
       const word = findWordByHashTable(slug, hashTable);
 

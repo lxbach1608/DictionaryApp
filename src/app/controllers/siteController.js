@@ -29,7 +29,7 @@ class SiteController {
     res.render('sign-up');
   }
 
-  // [POST] /sign-up
+  // [POST] /register
   register(req, res, next) {
     const formData = req.body;
 
@@ -39,7 +39,7 @@ class SiteController {
     res.redirect('/home');
   }
 
-  // [POST] /sign-in
+  // [POST] /login
   async login(req, res, next) {
     const username = req.body.username;
     const password = req.body.password;

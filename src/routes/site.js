@@ -15,7 +15,7 @@ router.post('/logout', SiteController.logout);
 
 router.post('/register', SiteController.register);
 
-router.use('/home', hashingMiddleware, authMiddleware, SiteController.index);
+router.use('/home', authMiddleware, SiteController.index);
 
 router.use('/', hashingMiddleware, SiteController.index);
 
