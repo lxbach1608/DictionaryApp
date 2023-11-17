@@ -1,5 +1,14 @@
-@import "variables.scss";
+@import 'variables.scss';
 
-h1 {
-  color: $red-color;
+#suggestion-list {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0;
+}
+
+#suggestion-list li {
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
 }

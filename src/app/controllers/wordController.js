@@ -12,9 +12,13 @@ class WordController {
 
       const word = findWordByHashTable(slug, hashTable);
 
-      res.render('words/show', {
-        word,
-      });
+      if (word) {
+        res.render('words/show', {
+          word,
+        });
+      } else {
+        res.json('Word does not exist');
+      }
     } catch (err) {
       next(err);
     }

@@ -1,9 +1,15 @@
 <div class="container">
   <h1>HOME</h1>
 
-  <input type="text" class="find-input" name="word" placeholder="find word">
+
+
+  <label for="wordInput">Type a word:</label>
+  <input type="text" class="find-input" id="wordInput" />
+
   <form name="findForm" method="GET">
   </form>
+
+  <ul id="suggestion-list"></ul>
 
   <ul class="mt-5">
     {{#each words}}
@@ -19,47 +25,119 @@
     const findInput = $(".find-input");
     const findForm = document.forms['findForm'];
 
-    console.log(findForm);
-
     findInput.keypress(e => {
 
       if (e.keyCode == 13) {
         let slug = e.target.value.trim().replace(" ", "-");
-        console.log(slug);
 
         findForm.action = `/words/${slug}`;
-        console.log(findForm.action);
+
         findForm.submit();
       }
     });
   });
 
 
-  let obj1 = {
-    word: "tea",
-    definition: "test",
-  }
-
-  let obj2 = {
-    word: "text",
-    definition: "test",
-  }
-
-
-  class Node {
-    constructor(data) {
-      this.data = data;
-      this.left = null;
-      this.right = null;
+  class TrieNode {
+    constructor() {
+      this.children = {};
+      this.isEndOfWord = false;
     }
   }
 
-  let node1 = new Node(obj1);
-  let node2 = new Node(obj2);
+  class Trie {
+    constructor() {
+      this.root = new TrieNode();
+    }
 
-  node1.left = node2;
+    insert(word) {
+      let node = this.root;
+      for (let char of word) {
+        if (!node.children[char]) {
+          node.children[char] = new TrieNode();
+        }
+        node = node.children[char];
+      }
+      node.isEndOfWord = true;
+    }
 
-  console.log(node1);
+    suggestionsWithPrefix(prefix) {
+      let node = this.root;
+      for (let char of prefix) {
+        if (!node.children[char]) {
+          return [];
+        }
+        node = node.children[char];
+      }
+      return this.findWordsWithPrefix(node, prefix);
+    }
+
+    findWordsWithPrefix(node, currentPrefix) {
+      const suggestions = [];
+      if (node.isEndOfWord) {
+        suggestions.push(currentPrefix);
+      }
+      for (let char in node.children) {
+        suggestions.push(
+          ...this.findWordsWithPrefix(
+            node.children[char],
+            currentPrefix + char
+          )
+        );
+      }
+      return suggestions;
+    }
+  }
+
+  const trie = new Trie();
+
+  fetch("http://localhost:3001/api/words")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let words = data;
+
+      words = words.map((word) => {
+        return word.word;
+      })
+
+      SuggestionInput(words, trie);
+    })
+
+  function SuggestionInput(words, trie) {
+    words.forEach((word) => trie.insert(word));
+
+    const wordInput = document.getElementById("wordInput");
+
+    wordInput.addEventListener("input", function () {
+      const inputText = wordInput.value.trim().toLowerCase();
+      const suggestions = trie.suggestionsWithPrefix(inputText);
+
+      renderSuggestions(suggestions);
+    });
+  }
+
+  function renderSuggestions(suggestions) {
+    const suggestionList = document.getElementById("suggestion-list");
+
+    suggestionList.innerHTML = "";
+    suggestions.forEach((suggestion) => {
+      let listItem = document.createElement("li");
+      let aElement = document.createElement("a");
+
+      aElement.href = `/words/${suggestion.replace(" ", "-")}`;
+
+      aElement.textContent = suggestion;
+
+      listItem.appendChild(aElement);
+      listItem.addEventListener("click", function () {
+        //wordInput.value = suggestion;
+        //suggestionList.innerHTML = "";
+      });
+      suggestionList.appendChild(listItem);
+    });
+  }
 
 
 </script>

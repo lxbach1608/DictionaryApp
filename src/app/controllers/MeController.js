@@ -29,8 +29,6 @@ class MeController {
     let user_words = await User_Word.find({ userId, wordId });
 
     if (user_words.length == 0) {
-      console.log('In');
-
       let word = await Word.findOne({ _id: wordId });
 
       word = mongooseToObject(word);
